@@ -20,16 +20,3 @@ jobs:
           path: |
             **.py
             README.md
-
-
-  deploy:
-    runs-on: windows-latest
-
-    needs: deliver
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          name: zipado.zip
-          
-      - name: Display dowload files
-        run: ls -r
