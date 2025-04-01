@@ -28,7 +28,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: Arquivotest.zip
+          name: zipado.zip
           
       - name: Display dowload files
         run: ls -r
