@@ -30,6 +30,6 @@ jobs:
         with:
           name: zipado.zip
           
-      - name: Display dowload files
+      - name: Display download files
         run: ls -r
       
