@@ -16,23 +16,14 @@ jobs:
         with:
           linter: pylint
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14.x, 16.x, 18.x]
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
 
-    steps:
-    - uses: actions/checkout@v4
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
+      - name: Install Dependencies
+        run: npm install
 
-    - name: Install Dependencies
-      run: npm install
-
-    - name: Run Jest Tests
-      run: npm test
+      - name: Run Jest Tests
+        run: npm test
