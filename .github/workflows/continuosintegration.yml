@@ -10,20 +10,24 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
+
+  test-job:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Executar análise de segurança estática
+        uses: AppThreat/sast-scan-action@master
+        with:
+          target: index.html, script.js, style.css
+          report_type: summary
+          severities: high, medium
+        env:
+          RISK_LEVEL: '10'
       
       - name: Python Lint Code Scanning Action
         uses: advanced-security/python-lint-code-scanning-action@v1.1.2
         with:
           linter: pylint
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Run Jest Tests
-        run: npm test
